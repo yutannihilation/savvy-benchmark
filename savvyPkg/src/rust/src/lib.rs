@@ -8,7 +8,7 @@ use savvy::{
 fn identity_int1(x: IntegerSxp) -> savvy::Result<savvy::SEXP> {
     let mut out = OwnedIntegerSxp::new(x.len());
 
-    for (i, v) in x.iter().enumerate() {
+    for (i, &v) in x.iter().enumerate() {
         out[i] = v;
     }
 
@@ -21,7 +21,7 @@ fn sum_int(x: IntegerSxp) -> savvy::Result<savvy::SEXP> {
     let mut res = 0;
     let mut out = OwnedIntegerSxp::new(1);
 
-    for v in x.iter() {
+    for &v in x.iter() {
         if v.is_na() {
             res = <i32>::na();
             break;
