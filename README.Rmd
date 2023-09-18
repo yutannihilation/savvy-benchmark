@@ -1,0 +1,71 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Benchmark savvy vs extendr
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+## Identity
+
+```{r}
+bench_identity <- function(x) {
+  x <- force(x)
+  results = bench::mark(
+    extendr1 = extendrPkg::identity_int1(x),
+    extendr2 = extendrPkg::identity_int2(x),
+    savvy    = savvyPkg::identity_int1(x)
+  )
+  
+  ggplot2::autoplot(results)
+}
+
+bench_identity(1L)
+bench_identity(1L:1000L)
+```
+
+## Sum
+
+```{r}
+bench_sum <- function(x) {
+  x <- force(x)
+  results = bench::mark(
+    extendr = extendrPkg::sum_int(x),
+    savvy   = savvyPkg::sum_int(x)
+  )
+  
+  ggplot2::autoplot(results)
+}
+
+bench_sum(1L)
+bench_sum(1L:10000L) # ALTREP
+bench_sum(rep(1L, 10000)) # non-ALTREP
+```
+
+## String conversion
+
+```{r}
+bench_to_upper <- function(x) {
+  x <- force(x)
+  results = bench::mark(
+    extendr = extendrPkg::to_upper(x),
+    savvy   = savvyPkg::to_upper(x)
+  )
+  
+  ggplot2::autoplot(results)
+}
+
+bench_to_upper("a")
+bench_to_upper(letters)
+bench_to_upper(rep("a", 10000))
+```
