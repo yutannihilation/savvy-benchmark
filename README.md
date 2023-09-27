@@ -6,88 +6,98 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-## Identity
+## Int input
 
 ``` r
-bench_identity <- function(x) {
+bench_int_input <- function(x) {
+  label <- rlang::as_label(rlang::enexpr(x))
   x <- force(x)
   results = bench::mark(
-    extendr1 = extendrPkg::identity_int1(x),
-    extendr2 = extendrPkg::identity_int2(x),
-    savvy    = savvyPkg::identity_int1(x)
+    "extendr (Integers)" = extendrPkg::int_input(x),
+    "extendr (Vec<i32>)" = extendrPkg::int_input_vec(x),
+    "savvy"              = savvyPkg::int_input(x)
   )
   
-  ggplot2::autoplot(results)
+  ggplot2::autoplot(results) + ggtitle(label)
 }
 
-bench_identity(1L)
+p1 <- bench_int_input(1L)
 #> Loading required namespace: tidyr
+p2 <- bench_int_input(1L:1000L)
+p3 <- bench_int_input(1L:100000L)
+
+p1 / p2 / p3
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
 
-``` r
-bench_identity(1L:1000L)
-```
-
-![](README_files/figure-gfm/unnamed-chunk-2-2.png)<!-- -->
-
-## Sum
+## Int output
 
 ``` r
-bench_sum <- function(x) {
+bench_int_output <- function(x) {
+  label <- rlang::as_label(rlang::enexpr(x))
   x <- force(x)
   results = bench::mark(
-    extendr = extendrPkg::sum_int(x),
-    savvy   = savvyPkg::sum_int(x)
+    extendr = extendrPkg::int_output(x),
+    savvy   = savvyPkg::int_output(x)
   )
   
-  ggplot2::autoplot(results)
+  ggplot2::autoplot(results) + ggtitle(label)
 }
 
-bench_sum(1L)
+p1 <- bench_int_output(1L)
+p2 <- bench_int_output(1000L)
+p3 <- bench_int_output(100000L)
+
+p1 / p2 / p3
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
-``` r
-bench_sum(1L:10000L) # ALTREP
-```
+## String input
 
-![](README_files/figure-gfm/unnamed-chunk-3-2.png)<!-- -->
+savvy is slow because it uses `Rf_translateCharUTF8()`.
 
 ``` r
-bench_sum(rep(1L, 10000)) # non-ALTREP
-```
-
-![](README_files/figure-gfm/unnamed-chunk-3-3.png)<!-- -->
-
-## String conversion
-
-``` r
-bench_to_upper <- function(x) {
+bench_str_input <- function(x) {
+  label <- rlang::as_label(rlang::enexpr(x))
   x <- force(x)
   results = bench::mark(
-    extendr = extendrPkg::to_upper(x),
-    savvy   = savvyPkg::to_upper(x)
+    extendr = extendrPkg::str_input(x),
+    savvy   = savvyPkg::str_input(x)
   )
   
-  ggplot2::autoplot(results)
+  ggplot2::autoplot(results) + ggtitle(label)
 }
 
-bench_to_upper("a")
+p1 <- bench_str_input("a")
+p2 <- bench_str_input(as.character(1:1000))
+p3 <- bench_str_input(as.character(1:100000))
+
+p1 / p2 / p3
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- --> \## String
+output
 
 ``` r
-bench_to_upper(letters)
+bench_str_output <- function(x) {
+  label <- rlang::as_label(rlang::enexpr(x))
+
+  x <- force(x)
+  results = bench::mark(
+    extendr = extendrPkg::str_output(x),
+    savvy   = savvyPkg::str_output(x)
+  )
+  
+  ggplot2::autoplot(results) + ggtitle(label)
+}
+
+p1 <- bench_str_output(1L)
+p2 <- bench_str_output(1000L)
+p3 <- bench_str_output(100000L)
+
+p1 / p2 / p3
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-4-2.png)<!-- -->
-
-``` r
-bench_to_upper(rep("a", 10000))
-```
-
-![](README_files/figure-gfm/unnamed-chunk-4-3.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->

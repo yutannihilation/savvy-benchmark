@@ -32,28 +32,32 @@ SEXP handle_result(SEXP res_) {
     return (SEXP)res;
 }
 
-
-SEXP savvy_identity_int1_wrapper(SEXP x) {
-    SEXP res = savvy_identity_int1(x);
+SEXP int_input__impl(SEXP x) {
+    SEXP res = int_input(x);
     return handle_result(res);
 }
 
-SEXP savvy_sum_int_wrapper(SEXP x) {
-    SEXP res = savvy_sum_int(x);
+SEXP int_output__impl(SEXP len) {
+    SEXP res = int_output(len);
     return handle_result(res);
 }
 
-SEXP savvy_to_upper_wrapper(SEXP x) {
-    SEXP res = savvy_to_upper(x);
+SEXP str_input__impl(SEXP x) {
+    SEXP res = str_input(x);
+    return handle_result(res);
+}
+
+SEXP str_output__impl(SEXP len) {
+    SEXP res = str_output(len);
     return handle_result(res);
 }
 
 
 static const R_CallMethodDef CallEntries[] = {
-    {"savvy_identity_int1", (DL_FUNC) &savvy_identity_int1_wrapper, 1},
-    {"savvy_sum_int", (DL_FUNC) &savvy_sum_int_wrapper, 1},
-    {"savvy_to_upper", (DL_FUNC) &savvy_to_upper_wrapper, 1},
-
+    {"int_input__impl", (DL_FUNC) &int_input__impl, 1},
+    {"int_output__impl", (DL_FUNC) &int_output__impl, 1},
+    {"str_input__impl", (DL_FUNC) &str_input__impl, 1},
+    {"str_output__impl", (DL_FUNC) &str_output__impl, 1},
     {NULL, NULL, 0}
 };
 

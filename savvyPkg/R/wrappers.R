@@ -3,18 +3,23 @@
 NULL
 
 #' @export
-identity_int1 <- function(x) {
-  .Call(savvy_identity_int1, x)
+int_input <- function(x) {
+  .Call(int_input__impl, x)
 }
 
 #' @export
-sum_int <- function(x) {
-  .Call(savvy_sum_int, x)
+int_output <- function(len) {
+  .Call(int_output__impl, len)
 }
 
 #' @export
-to_upper <- function(x) {
-  .Call(savvy_to_upper, x)
+str_input <- function(x) {
+  .Call(str_input__impl, x)
+}
+
+#' @export
+str_output <- function(len) {
+  .Call(str_output__impl, len)
 }
 
 

@@ -12,16 +12,19 @@
 NULL
 
 #' @export
-identity_int1 <- function(x) .Call(wrap__identity_int1, x)
+int_input <- function(x) .Call(wrap__int_input, x)
 
 #' @export
-identity_int2 <- function(x) .Call(wrap__identity_int2, x)
+int_input_vec <- function(x) .Call(wrap__int_input_vec, x)
 
 #' @export
-sum_int <- function(x) .Call(wrap__sum_int, x)
+int_output <- function(len) .Call(wrap__int_output, len)
 
 #' @export
-to_upper <- function(x) .Call(wrap__to_upper, x)
+str_input <- function(x) .Call(wrap__str_input, x)
+
+#' @export
+str_output <- function(len) .Call(wrap__str_output, len)
 
 
 # nolint end

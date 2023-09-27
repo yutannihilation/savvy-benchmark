@@ -5,48 +5,52 @@ use savvy::{
 
 /// @export
 #[savvy]
-fn identity_int1(x: IntegerSxp) -> savvy::Result<savvy::SEXP> {
-    let mut out = OwnedIntegerSxp::new(x.len());
-
-    for (i, &v) in x.iter().enumerate() {
-        out[i] = v;
-    }
-
-    Ok(out.into())
-}
-
-/// @export
-#[savvy]
-fn sum_int(x: IntegerSxp) -> savvy::Result<savvy::SEXP> {
+fn int_input(x: IntegerSxp) -> savvy::Result<savvy::SEXP> {
     let mut res = 0;
-    let mut out = OwnedIntegerSxp::new(1);
 
-    for &v in x.iter() {
-        if v.is_na() {
-            res = <i32>::na();
-            break;
-        }
-        res += v;
+    for &i in x.iter() {
+        res += i;
     }
 
-    out[0] = res;
+    let out: savvy::OwnedIntegerSxp = res.try_into()?;
+    Ok(out.into())
+}
+
+/// @export
+#[savvy]
+fn int_output(len: i32) -> savvy::Result<savvy::SEXP> {
+    let mut out = OwnedIntegerSxp::new(len as _)?;
+
+    for i in 0..len {
+        out[i as _] = i;
+    }
 
     Ok(out.into())
 }
 
 /// @export
 #[savvy]
-fn to_upper(x: StringSxp) -> savvy::Result<savvy::SEXP> {
-    let mut out = OwnedStringSxp::new(x.len());
+fn str_input(x: StringSxp) -> savvy::Result<savvy::SEXP> {
+    let mut res = String::new();
 
-    for (i, e) in x.iter().enumerate() {
+    for e in x.iter() {
         if e.is_na() {
-            out.set_elt(i, <&str>::na());
             continue;
         }
+        res.push_str(e);
+    }
 
-        let e_upper = e.to_uppercase();
-        out.set_elt(i, e_upper.as_str());
+    let out: savvy::OwnedStringSxp = res.try_into()?;
+    Ok(out.into())
+}
+
+/// @export
+#[savvy]
+fn str_output(len: i32) -> savvy::Result<savvy::SEXP> {
+    let mut out = OwnedStringSxp::new(len as _)?;
+
+    for i in 0..len {
+        out.set_elt(i as _, &i.to_string())?;
     }
 
     Ok(out.into())
