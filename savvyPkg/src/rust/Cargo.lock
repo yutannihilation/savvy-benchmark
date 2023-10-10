@@ -14,7 +14,7 @@ dependencies = [
 [[package]]
 name = "libR-sys"
 version = "0.6.0"
-source = "git+https://github.com/extendr/libR-sys#9ed726c4a34110f3bc25d0e80ecbf8c60d0adfa0"
+source = "git+https://github.com/extendr/libR-sys#bcfeb7200416347cf0c400cece7d6561206c46d4"
 
 [[package]]
 name = "libc"
@@ -48,8 +48,8 @@ dependencies = [
 
 [[package]]
 name = "savvy"
-version = "0.1.13"
-source = "git+https://github.com/yutannihilation/savvy.git#7409e7dab38405544815df46925576b61ce25033"
+version = "0.1.15"
+source = "git+https://github.com/yutannihilation/savvy.git#b68457a63452b2328c5586374f08dcd6af44b6a4"
 dependencies = [
  "cc",
  "libR-sys",
@@ -59,8 +59,8 @@ dependencies = [
 
 [[package]]
 name = "savvy-bindgen"
-version = "0.1.13"
-source = "git+https://github.com/yutannihilation/savvy.git#7409e7dab38405544815df46925576b61ce25033"
+version = "0.1.15"
+source = "git+https://github.com/yutannihilation/savvy.git#b68457a63452b2328c5586374f08dcd6af44b6a4"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -69,8 +69,8 @@ dependencies = [
 
 [[package]]
 name = "savvy-macro"
-version = "0.1.13"
-source = "git+https://github.com/yutannihilation/savvy.git#7409e7dab38405544815df46925576b61ce25033"
+version = "0.1.15"
+source = "git+https://github.com/yutannihilation/savvy.git#b68457a63452b2328c5586374f08dcd6af44b6a4"
 dependencies = [
  "proc-macro2",
  "quote",
